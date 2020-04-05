@@ -1,10 +1,21 @@
+enum class PositionInString
+{
+    RP,
+    WP,
+    NC;
+
+}
+
+
 fun main () {
-    var userInput: String
-    var randomNumber: String
+    lateinit var userInput: String
     var givenUp: String? = null
+    val triedList: MutableList<Pair<List<PositionInString>, String>> = mutableListOf()
 
-
+    lateinit var currentTry: List<PositionInString>
+    val randomNumber: String
     val createUniqueFourDigitNumber = {(0..9).shuffled().take(4).joinToString("")}
+
     //createUniqueFourDigitNumber.forEach {randomNumber +=it }
     randomNumber = createUniqueFourDigitNumber()
     println(randomNumber)
@@ -15,14 +26,19 @@ fun main () {
         if (howManyUniqueCharsInString(userInput) < 4)
             println("No repeating digits allowed")
             else {
-                println(
-                    checkWhichCharsAreInBothStrings(
-                        userInput,
-                        randomNumber
-                    ) + "\n RP = Right position, WP = Wrong position, NC = Not contained"
+                currentTry = checkWhichCharsAreInBothStrings(
+                    userInput,
+                    randomNumber
                 )
+            triedList.add(Pair(currentTry, userInput))
+                println(
+                    currentTry + "\n RP = Right position, WP = Wrong position, NC = Not contained \n" )
+
+            println("Tried so far: \n $triedList")
+
+
                 if (randomNumber != userInput) {
-                    println("Do you want to give up? (y/n) ")
+                    println("\nDo you want to give up? (y/n) ")
                     givenUp = readStringInput(mutableListOf("y", "n"))
                     println(if (givenUp == "y") "Random number is $randomNumber" else continue)
                 } else {
@@ -49,15 +65,15 @@ fun readStringInput (allowed: MutableList<String>): String {
  * Returns a list of elements which state if the
  * RP = Right position, WP = contains but wrong position NC = not contained
  */
-fun checkWhichCharsAreInBothStrings (userInput: String, randomNumber: String): MutableList<String> {
-    val positionRightList = mutableListOf<String>()
+fun checkWhichCharsAreInBothStrings (userInput: String, randomNumber: String): List<PositionInString> {
+    val positionRightList = mutableListOf<PositionInString>()
 
     userInput.forEachIndexed { index, c ->
         positionRightList.add(
             when {
-                randomNumber[index] == c -> "RP"
-                randomNumber.contains(c.toString())  -> "WP"
-                else -> "NC"
+                randomNumber[index] == c -> PositionInString.RP // unnötig lang aber enums ausprobiert
+                randomNumber.contains(c.toString())  -> PositionInString.WP
+                else -> PositionInString.NC
             }
 
             //alte version - funktioniert aber da werden bei doppel vorkommenden Zahlen im Input "WP" angegeben und nicht "NC" bei zwei indizes weiter nach rechts in der Liste
@@ -71,8 +87,8 @@ fun checkWhichCharsAreInBothStrings (userInput: String, randomNumber: String): M
             else "NC" */
                     )
                 }
-
-    return positionRightList
+    //oder einfach return positionRightList aber so wirds geordnet zurück gegeben mit RP -> WP ->  NC Reihenfolge so wie im online Spiel
+    return positionRightList.sortedBy{ it.ordinal }
 }
 
 /**
