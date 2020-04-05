@@ -16,7 +16,6 @@ fun main() {
 
     //createUniqueFourDigitNumber.forEach {randomNumber +=it }
     randomNumber = createUniqueFourDigitNumber()
-    println(randomNumber)
 
     do {
         println(if (givenUp != "n") "Guess the number (it has 4 digits and each digit exists only once): $randomNumber" else "Guess again")
@@ -32,11 +31,11 @@ fun main() {
                 randomNumber
             )
             triedList.add(Pair(currentTry, userInput))
-            println(
-                currentTry + "\n RP = Right position, WP = Wrong position, NC = Not contained \n"
-            )
 
-            println("Tried so far: \n $triedList")
+            println("$currentTry \nRP = Right position, WP = Wrong position, NC = Not contained \n")
+
+            println("Tried so far: \n")
+            triedList.forEach { println(it) }
 
 
             if (randomNumber != userInput) {
