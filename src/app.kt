@@ -23,7 +23,7 @@ fun main() {
         //wenn nicht 4 unique chars
         if (howManyUniqueCharsInString(userInput) < 4)
             println("No repeating digits allowed")
-        else if(userInput.length > 4)
+        else if (userInput.length > 4)
             println("Only 4 numbers!")
         else {
             currentTry = checkWhichCharsAreInBothStrings(
@@ -105,14 +105,3 @@ fun createFourDigitNumber(): String {
 
     return fourDigitNumber
 }
-
-
-//alte version - funktioniert aber da werden bei doppel vorkommenden Zahlen im Input "WP" angegeben und nicht "NC" bei zwei indizes weiter nach rechts in der Liste
-/*if(randomNumber[index] == c ) "RP"
-else if(randomNumber.contains(c.toString())) {
-if(randomNumber.reversed().substring(index).contains(c))
-"NC"
-else
-"WP"
-}
-else "NC" */
