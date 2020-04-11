@@ -21,8 +21,9 @@ fun main() {
         println(if (givenUp != "n") "Guess the number (it has 4 digits and each digit exists only once): $randomNumber" else "Guess again")
         userInput = readLine().toString()
         //wenn nicht 4 unique chars
+
         if (howManyUniqueCharsInString(userInput) < 4)
-            println("No repeating digits allowed")
+            println("No repeating digits allowed and input must be 4 numbers")
         else if (userInput.length > 4)
             println("Only 4 numbers!")
         else {
@@ -85,9 +86,14 @@ fun checkWhichCharsAreInBothStrings(userInput: String, randomNumber: String): Li
  * Returns how many unique chars there are in a string
  */
 fun howManyUniqueCharsInString(input: String): Int {
+
+   val set = mutableSetOf<Char>()
+    input.forEach { set.add(it) }
+    return set.size
+    /*
     val list = mutableListOf<Char>()
     input.forEach { if (!list.contains(it)) list.add(it) }
-    return list.size
+    return list.size*/
 }
 
 /**
