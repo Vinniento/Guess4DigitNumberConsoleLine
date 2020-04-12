@@ -8,7 +8,7 @@ fun main() {
     lateinit var userInput: String
     var givenUp: String? = null
     //Liste mit einmal einer Liste von PositionInString in Kombi mit welcher Zahl probiert wurde
-    val triedList: MutableList<Pair<List<PositionInString>, String>> = mutableListOf()
+    val triedList: MutableSet<Pair<List<PositionInString>, String>> = mutableSetOf()
 
     lateinit var currentTry: List<PositionInString>
     val randomNumber: String
@@ -90,10 +90,6 @@ fun howManyUniqueCharsInString(input: String): Int {
    val set = mutableSetOf<Char>()
     input.forEach { set.add(it) }
     return set.size
-    /*
-    val list = mutableListOf<Char>()
-    input.forEach { if (!list.contains(it)) list.add(it) }
-    return list.size*/
 }
 
 /**
